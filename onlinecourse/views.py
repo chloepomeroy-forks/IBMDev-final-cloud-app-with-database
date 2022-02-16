@@ -110,7 +110,12 @@ def enroll(request, course_id):
          # Collect the selected choices from exam form
          # Add each selected choice object to the submission object
          # Redirect to show_exam_result with the submission id
-#def submit(request, course_id):
+def submit(request, enrollment_id, course_id):
+    user = request.user
+    course = get_object_or_404(Course, pk=course_id)
+    enrollment = get_object_or_404(Enrollment, pk=enrollment_id)
+    Submission.objects.create(enrollment=enrollment, mode='honor')
+    return redirect('onlinecourse:index')
 
 
 # <HINT> A example method to collect the selected choices from the exam form from the request object
