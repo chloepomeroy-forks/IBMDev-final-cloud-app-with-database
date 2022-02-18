@@ -124,19 +124,9 @@ def submit(request, course_id):
 
     submission = Submission.objects.create(enrollment=enrollment)
     submission.choices.set(submitted_answers)
+    submission.save()
 
     return redirect('onlinecourse:result', course_id=course_id, submission_id=submission.pk)
-
-
-# <HINT> A example method to collect the selected choices from the exam form from the request object
-def extract_answers(request):
-    submitted_answers = []
-    for key in request.POST:
-        if key.startswith('choice'):            
-            value = request.POST[key]
-            choice_id = int(value)
-            submitted_answers.append(choice_id)
-    return submitted_answers
 
 
 # <HINT> Create an exam result view to check if learner passed exam and show their question results and result for each question,
