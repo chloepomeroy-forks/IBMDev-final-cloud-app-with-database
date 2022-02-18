@@ -166,7 +166,10 @@ def show_exam_result(request, course_id, submission_id):
         grade += question.is_get_score(choices)
 
     context['course'] = course
-    context['grade'] = round((grade/total)*100, 2)
+    if total!=0:
+        context['grade'] = round((grade/total)*100, 2)
+    else:
+        context['grade'] = 0
     context['choices'] = choices
 
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
